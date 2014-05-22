@@ -27,6 +27,6 @@
     "tests"
   ],
   "dependencies": {
-    "phantomcss": "fracmak/PhantomCSS#83c7bee47cbef0b071e237510a973f4a90e6cffa"
+    "phantomcss": "e7c9acfaa07bae4c7bb7e5e50fefadc65c5ff3d9"
   }
 }
