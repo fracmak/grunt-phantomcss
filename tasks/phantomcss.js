@@ -118,6 +118,9 @@ module.exports = function(grunt) {
             onTimeout: function(test) {
                 grunt.log.writeln('Timeout while processing ' + path.basename(test.filename));
             },
+            onNewImage: function(test) {
+                grunt.log.writeln('New screenshot at ' + path.basename(test.filename));
+            },
             onComplete: function(allTests, noOfFails, noOfErrors) {
                 if (allTests.length) {
                     var noOfPasses = allTests.length - failureCount;

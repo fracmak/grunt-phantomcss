@@ -43,6 +43,9 @@ phantomcss.init({
     onTimeout: function(test) {
         sendMessage('onTimeout', test);
     },
+    onNewImage: function(test) {
+        sendMessage('onNewImage', test);
+    },
     onComplete: function(allTests, noOfFails, noOfErrors) {
         sendMessage('onComplete', allTests, noOfFails, noOfErrors);
     }
