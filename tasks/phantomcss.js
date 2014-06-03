@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         var options = this.options({
             screenshots: 'screenshots',
             results: 'results',
+            errorOnBaseline: false,
             viewportSize: [1280, 800],
             logLevel: 'error'
         });
@@ -29,6 +30,9 @@ module.exports = function(grunt) {
 
         // The number of tempfile lines already read
         var lastLine = 0;
+
+        // number of new screenshot images created
+        var numNewImages = 0;
 
         // The number of failed tests
         var failureCount = 0;
@@ -119,7 +123,8 @@ module.exports = function(grunt) {
                 grunt.log.writeln('Timeout while processing ' + path.basename(test.filename));
             },
             onNewImage: function(test) {
-                grunt.log.writeln('New screenshot at ' + path.basename(test.filename));
+                numNewImages++;
+                grunt.log.ok('New screenshot at ' + path.basename(test.filename));
             },
             onComplete: function(allTests, noOfFails, noOfErrors) {
                 if (allTests.length) {
@@ -137,10 +142,19 @@ module.exports = function(grunt) {
                             grunt.log.error(noOfFails + ' tests failed, ' + noOfErrors + ' had errors.');
                         }
                     }
+                    if (numNewImages) {
+                        grunt.log[options.errorOnBaseline ? 'error' : 'ok'](numNewImages + ' new baseline screenshots created.');
+                        if (options.errorOnBaseline) {
+                            failureCount += numNewImages;
+                        }
+                    }
                 }
                 else {
-                    grunt.log.ok('Baseline screenshots generated in '+options.screenshots);
+                    grunt.log[options.errorOnBaseline ? 'error' : 'ok']('Baseline screenshots generated in ' + options.screenshots);
                     grunt.log.warn('Check that the generated screenshots are visually correct and delete them if they aren\'t.');
+                    if (options.errorOnBaseline) {
+                        failureCount += numNewImages;
+                    }
                 }
             }
         };
