@@ -27,6 +27,6 @@
     "tests"
   ],
   "dependencies": {
-    "phantomcss": "git+https://github.com/fracmak/PhantomCSS.git#feature/marking_new"
+    "phantomcss": "https://github.com/fracmak/PhantomCSS.git#feature/marking_new"
   }
 }
